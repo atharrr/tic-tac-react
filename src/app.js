@@ -2,11 +2,13 @@ import React from "react";
 
 class Box extends React.Component {
   render() {
-    const { handleClick, pathName, checked } = this.props;
+    const { handleClick, pathName, checked, disabled } = this.props;
     return (
       <button
         onClick={() => {
-          handleClick(pathName);
+          if (!disabled) {
+            handleClick(pathName);
+          }
         }}
       >
         {checked || "-"}
@@ -18,7 +20,8 @@ class Box extends React.Component {
 class MainApp extends React.Component {
   state = {
     checked: {},
-    nextTurn: "x"
+    nextTurn: "x",
+    winner: null
   };
 
   handleClick = pathName => {
@@ -40,11 +43,14 @@ class MainApp extends React.Component {
         pathName={pathName}
         key={pathName}
         checked={checked}
+        disabled={checked || this.state.winner}
       />
     );
   }
 
   render() {
+    const { winner } = this.state;
+
     const line = 3;
     const column = 3;
 
@@ -64,6 +70,7 @@ class MainApp extends React.Component {
             <div key={`batch-${i}`}>{batch}</div>
           ))}
         </div>
+        {winner ? <div>Winner: {winner}</div> : null}
       </div>
     );
   }
