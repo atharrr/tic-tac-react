@@ -2,65 +2,42 @@ import React from "react";
 
 class Box extends React.Component {
   render() {
-    const { handleClick } = this.props;
-    return <button onClick={handleClick} />;
+    const { handleClick, pathName } = this.props;
+    return (
+      <button
+        onClick={() => {
+          handleClick(pathName);
+        }}
+      />
+    );
   }
 }
 
 class MainApp extends React.Component {
+  handleClick = pathName => {
+    console.log("path", pathName, "has been clicked");
+  };
+
+  renderButton(pathName) {
+    return <Box handleClick={this.handleClick} pathName={pathName} />;
+  }
   render() {
     return (
       <div>
         <div>
-          <Box
-            handleClick={() => {
-              console.log("Button 1 has been clicked");
-            }}
-          />
-          <Box
-            handleClick={() => {
-              console.log("Button 2 has been clicked");
-            }}
-          />
-          <Box
-            handleClick={() => {
-              console.log("Button 3 has been clicked");
-            }}
-          />
+          {this.renderButton(`r1c1`)}
+          {this.renderButton(`r1c2`)}
+          {this.renderButton(`r1c3`)}
         </div>
         <div>
-          <Box
-            handleClick={() => {
-              console.log("Button 4 has been clicked");
-            }}
-          />
-          <Box
-            handleClick={() => {
-              console.log("Button 5 has been clicked");
-            }}
-          />
-          <Box
-            handleClick={() => {
-              console.log("Button 6 has been clicked");
-            }}
-          />
+          {this.renderButton(`r2c1`)}
+          {this.renderButton(`r2c2`)}
+          {this.renderButton(`r2c3`)}
         </div>
         <div>
-          <Box
-            handleClick={() => {
-              console.log("Button 7 has been clicked");
-            }}
-          />
-          <Box
-            handleClick={() => {
-              console.log("Button 8 has been clicked");
-            }}
-          />
-          <Box
-            handleClick={() => {
-              console.log("Button 9 has been clicked");
-            }}
-          />
+          {this.renderButton(`r3c1`)}
+          {this.renderButton(`r3c2`)}
+          {this.renderButton(`r3c3`)}
         </div>
       </div>
     );
