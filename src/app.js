@@ -2,27 +2,46 @@ import React from "react";
 
 class Box extends React.Component {
   render() {
-    const { handleClick, pathName } = this.props;
+    const { handleClick, pathName, checked } = this.props;
     return (
       <button
         onClick={() => {
           handleClick(pathName);
         }}
-      />
+      >
+        {checked || "-"}
+      </button>
     );
   }
 }
 
 class MainApp extends React.Component {
+  state = {
+    checked: {},
+    nextTurn: "x"
+  };
+
   handleClick = pathName => {
-    console.log("path", pathName, "has been clicked");
+    const currentTurn = this.state.nextTurn;
+    const nextTurn = currentTurn === "x" ? "o" : "x";
+
+    this.setState(oldState => ({
+      checked: { ...oldState.checked, [pathName]: currentTurn },
+      nextTurn
+    }));
   };
 
   renderButton(pathName) {
     return (
-      <Box handleClick={this.handleClick} pathName={pathName} key={pathName} />
+      <Box
+        handleClick={this.handleClick}
+        pathName={pathName}
+        key={pathName}
+        checked={this.state.checked[pathName]}
+      />
     );
   }
+
   render() {
     const line = 3;
     const column = 3;
