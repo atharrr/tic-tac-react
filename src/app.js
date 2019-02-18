@@ -24,20 +24,22 @@ class MainApp extends React.Component {
   handleClick = pathName => {
     const currentTurn = this.state.nextTurn;
     const nextTurn = currentTurn === "x" ? "o" : "x";
+    const checked = { ...this.state.checked, [pathName]: currentTurn };
 
-    this.setState(oldState => ({
-      checked: { ...oldState.checked, [pathName]: currentTurn },
+    this.setState({
+      checked,
       nextTurn
-    }));
+    });
   };
 
   renderButton(pathName) {
+    const checked = this.state.checked[pathName];
     return (
       <Box
         handleClick={this.handleClick}
         pathName={pathName}
         key={pathName}
-        checked={this.state.checked[pathName]}
+        checked={checked}
       />
     );
   }
