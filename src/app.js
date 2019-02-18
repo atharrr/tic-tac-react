@@ -19,25 +19,29 @@ class MainApp extends React.Component {
   };
 
   renderButton(pathName) {
-    return <Box handleClick={this.handleClick} pathName={pathName} />;
+    return (
+      <Box handleClick={this.handleClick} pathName={pathName} key={pathName} />
+    );
   }
   render() {
+    const line = 3;
+    const column = 3;
+
+    const batches = [];
+    for (let i = 1; i <= line; i++) {
+      const lineButtons = [];
+      for (let j = 1; j <= column; j++) {
+        lineButtons.push(this.renderButton(`r${i}c${j}`));
+      }
+      batches.push(lineButtons);
+    }
+
     return (
       <div>
         <div>
-          {this.renderButton(`r1c1`)}
-          {this.renderButton(`r1c2`)}
-          {this.renderButton(`r1c3`)}
-        </div>
-        <div>
-          {this.renderButton(`r2c1`)}
-          {this.renderButton(`r2c2`)}
-          {this.renderButton(`r2c3`)}
-        </div>
-        <div>
-          {this.renderButton(`r3c1`)}
-          {this.renderButton(`r3c2`)}
-          {this.renderButton(`r3c3`)}
+          {batches.map((batch, i) => (
+            <div key={`batch-${i}`}>{batch}</div>
+          ))}
         </div>
       </div>
     );
