@@ -24,6 +24,8 @@ class MainApp extends React.Component {
     winner: null
   };
 
+  size = 3;
+
   handleClick = pathName => {
     const currentTurn = this.state.nextTurn;
     const nextTurn = currentTurn === "x" ? "o" : "x";
@@ -50,14 +52,12 @@ class MainApp extends React.Component {
 
   render() {
     const { winner } = this.state;
-
-    const line = 3;
-    const column = 3;
+    const { size } = this;
 
     const batches = [];
-    for (let i = 1; i <= line; i++) {
+    for (let i = 1; i <= size; i++) {
       const lineButtons = [];
-      for (let j = 1; j <= column; j++) {
+      for (let j = 1; j <= size; j++) {
         lineButtons.push(this.renderButton(`r${i}c${j}`));
       }
       batches.push(lineButtons);
